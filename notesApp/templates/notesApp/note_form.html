@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Note</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <p>
+        <label>Title:</label>
+        <input type="text" name="title" value="{{ note.title }}">
+    </p>
+    <p>
+        <label>Text:</label>
+        <textarea name="text">{{ note.text }}</textarea>
+    </p>
+    <button type="submit">Save</button>
+</form>
+
+<p><a href="{% url 'all_notes' %}">Back</a></p>
+{% endblock %}

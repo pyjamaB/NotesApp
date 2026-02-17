@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}<</title>
+    <link rel="stylesheet" href="/static/main.css">
+</head>
+<body>
+    <h1>Notes</h1>
+    
+    {% if user.is_authenticated %}
+        <p>Welcome, {{ user.username }}! <a href="{% url 'logout' %}">Logout</a></p>
+    {% else %}
+        <p><a href="{% url 'login' %}">Login</a></p>
+        <p><a href="{% url 'register' %}">Register</a></p>
+    {% endif %}
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

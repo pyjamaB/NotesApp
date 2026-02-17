@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>All notes</h2>
+
+<p>
+    <a href="{% url 'create_note' %}">Create note</a>
+</p>
+
+<ul>
+    {% for note in notes %}
+        <li>
+            <a href="{% url 'show_note' note.pk %}">{{ note.title }}</a>
+            <a href="{% url 'edit_note' note.pk %}">Edit</a>
+        </li>
+    {% empty %}
+        <li>No notes found.</li>
+    {% endfor %}
+</ul>
+ 
+<form method="get" action="search_notes/">
+    <input type="text" name="q">
+    <button type="submit">Search notes</button>
+{% endblock %}

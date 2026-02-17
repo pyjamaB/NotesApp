@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <h2>Login</h2>
+    {% if messages %}
+        {% for message in messages %}
+            <p style="color: red;">{{ message }}</p>
+        {% endfor %}
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    <label>Username:</label>
+    <input type="text" name="username">
+    <label>Password:</label>
+    <input type="password" name="password">
+    <button type="submit">Login</button>
+</form>
+
+<p><a href="{% url 'register' %}">Register</a></p>
+<p><a href="{% url 'all_notes' %}">Back</a></p>
+{% endblock %}
