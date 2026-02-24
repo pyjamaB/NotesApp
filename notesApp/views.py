@@ -36,8 +36,9 @@ def logout_view(request):
 
 @login_required
 def all_notes(request):
-    notes = Note.objects.filter(user=request.user)
-    return render(request, "notesApp/all_notes.html", {"notes":notes})
+    notes = Note.objects.order_by('-pub_date')[:5]
+    context = {"notes":notes}
+    return render(request, "notesApp/all_notes.html", context)
 
 @login_required
 def create_note(request):
@@ -50,7 +51,7 @@ def create_note(request):
 
 @login_required
 def show_note(request, pk):
-    note = get_object_or_404(Note, pk=pk, user=request.user)
+    note = get_object_or_404(Note, pk=pk)
     return render(request, "notesApp/show_note.html", {"note": note})
 
 @login_required
@@ -66,6 +67,5 @@ def edit_note(request, pk):
 @login_required
 def search_notes(request):
     query = request.GET.get("q", "")
-    results = Note.objects.filter(user=request.user
-    ).filter(Q(title__icontains=query) | Q(text__icontains=query))
+    results = Note.objects.filter(Q(title__icontains=query) | Q(text__icontains=query))
     return render(request, "notesApp/search_notes.html", {"results": results, "query": query})
