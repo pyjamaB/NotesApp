@@ -2,7 +2,12 @@
 {% block content %}
 <h2>{{ note.title }}</h2>
 <p>
-    {{ note.text }}
+    {{ note.text | safe }}
 </p>
+{% if note.user_id == request.user.id %}
+<p>
+    <a href="{% url 'edit_note' note.pk %}">Edit</a>
+</p>
+{% endif %}
 <p><a href="{% url 'all_notes' %}">Back</a></p>
 {% endblock %}
