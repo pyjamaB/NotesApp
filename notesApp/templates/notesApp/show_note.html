@@ -3,6 +3,7 @@
 <h2>{{ note.title }}</h2>
 <p>
     {{ note.text | safe }}
+    <!--In order to block XSS vulnerability, remove | safe after note.text-->
 </p>
 {% if note.user_id == request.user.id %}
 <p>
