@@ -58,7 +58,9 @@ def show_note(request, pk):
 
 @login_required
 def edit_note(request, pk):
-    note = get_object_or_404(Note, pk=pk, user=request.user)
+    note = get_object_or_404(Note, pk=pk)
+    #Add user=request.user inside get_object_or_404 in order to
+    #prevent accessing someone else's notes (broken access control).
     if request.method == "POST":
         note.title = request.POST.get("title")
         note.text = request.POST.get("text")
