@@ -71,7 +71,10 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'projectNotes.wsgi.application'
-
+#In order to prevent CSRF type attacks change SESSION_COOKIE_SAMESITE
+#to 'Lax', 'Strict' or take away this selection completely and django will use
+# the default setting which is 'Lax'.
+SESSION_COOKIE_SAMESITE = 'None'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
