@@ -42,7 +42,7 @@ def all_notes(request):
     return render(request, "notesApp/all_notes.html", context)
 
 @login_required
-@csrf_exempt
+@csrf_exempt  #Remove @csrf_exempt tag in order to block csrf attacks.
 def create_note(request):
     if request.method == "POST":
         title = request.POST.get("title")
