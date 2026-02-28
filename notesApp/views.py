@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from django.db.models import Q
+from django.db import connection
 from .models import Note
 
 
@@ -52,19 +53,27 @@ def create_note(request):
     return render(request, "notesApp/note_form.html")
 
 @login_required
-def show_note(request, pk):
-    note = get_object_or_404(Note, pk=pk)
+def show_note(request, note_id):
+    note = get_object_or_404(Note, pk=note_id)
     return render(request, "notesApp/show_note.html", {"note": note})
 
 @login_required
-def edit_note(request, pk):
-    note = get_object_or_404(Note, pk=pk)
+def edit_note(request, note_id):
+    note = get_object_or_404(Note, pk=note_id)
+    #note = get_object_or_404(Note, pk=note_id, user=request.user)
     #Add user=request.user inside get_object_or_404 in order to
     #prevent accessing someone else's notes (broken access control).
     if request.method == "POST":
-        note.title = request.POST.get("title")
-        note.text = request.POST.get("text")
-        note.save()
+        title = request.POST.get("title")
+        text = request.POST.get("text")
+        
+        with connection.cursor() as cursor:
+            cursor.execute('''f"UPDATE notesApp_note SET title = {title}, text = '{text}'
+                WHERE note_id = {note_id}"''')
+
+        #note.title = title
+        #note.text = text
+        #note.save()
         return redirect("all_notes")
     return render(request, "notesApp/note_form.html", {"note": note})
 
