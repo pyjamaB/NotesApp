@@ -1,0 +1,3 @@
+# Notes app
+
+This is a project for University of Helsinki Data Science course Cyber securiy base. The aim of the project is to develop a simple web application with at least five OWASP top ten list security flaws along with fixes to the flaws. This is done in order to gain understanding of developing a safe web application. The five flaws from the OWASP list I have picked for this project are sql injection, security misconfiguration, cross-site scripting (XSS) and broken access control. CSRF, which is not on the OWASP list, is also added to the project because it was allowed in the course's description.
