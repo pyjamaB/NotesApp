@@ -70,7 +70,10 @@ def edit_note(request, note_id):
         with connection.cursor() as cursor:
             cursor.execute('''f"UPDATE notesApp_note SET title = {title}, text = '{text}'
                 WHERE note_id = {note_id}"''')
-
+        #In order to fix vulnerability for sql injection attacks,
+        #remove the section starting with "with connection.cursor" and
+        #replace it with the code below:
+       
         #note.title = title
         #note.text = text
         #note.save()
