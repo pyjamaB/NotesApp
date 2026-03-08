@@ -1,3 +1,4 @@
+ls
 """
 Django settings for projectNotes project.
 
@@ -27,7 +28,7 @@ DEBUG = True
 #Safe for production version:
 #DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.localhost', '127.0.0.1', '[::1]']
 
 LOGIN_URL = "login"
 
