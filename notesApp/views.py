@@ -58,27 +58,35 @@ def show_note(request, note_id):
     return render(request, "notesApp/show_note.html", {"note": note})
 
 @login_required
+@csrf_exempt  #Remove @csrf_exempt tag in order to fix broken access control.
 def edit_note(request, note_id):
     note = get_object_or_404(Note, pk=note_id)
     #note = get_object_or_404(Note, pk=note_id, user=request.user)
     #Add user=request.user inside get_object_or_404 in order to
-    #prevent accessing someone else's notes (broken access control).
+    #prevent accessing the edit feature for someone else's notes (broken access control).
     if request.method == "POST":
         title = request.POST.get("title")
         text = request.POST.get("text")
         
-        with connection.cursor() as cursor:
-            cursor.execute('''f"UPDATE notesApp_note SET title = {title}, text = '{text}'
-                WHERE note_id = {note_id}"''')
+       # with connection.cursor() as cursor:
+           # cursor.execute(f"UPDATE notesApp_note SET title = {title}, text = '{text}' WHERE id = {note_id}")
         #In order to fix vulnerability for sql injection attacks,
         #remove the section starting with "with connection.cursor" and
         #replace it with the code below:
        
-        #note.title = title
-        #note.text = text
-        #note.save()
+        note.title = title
+        note.text = text
+        note.save()
         return redirect("all_notes")
     return render(request, "notesApp/note_form.html", {"note": note})
+
+@login_required
+def delete_note(request, note_id):
+    note = get_object_or_404(Note, pk=note_id, user=request.user)
+    if request.method == "POST":
+        note.delete()
+        return redirect("all_notes")
+    return render(request, "notesApp/delete_note.html", {"note": note})
 
 @login_required
 def search_notes(request):

@@ -8,6 +8,7 @@
 {% if note.user_id == request.user.id %}
 <p>
     <a href="{% url 'edit_note' note.pk %}">Edit</a>
+    <a href="{% url 'delete_note' note.pk %}">Delete</a>
 </p>
 {% endif %}
 <p><a href="{% url 'all_notes' %}">Back</a></p>

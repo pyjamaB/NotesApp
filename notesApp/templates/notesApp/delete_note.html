@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Note</h2>
+    <form method="POST">
+        {% csrf_token %}
+        Are you sure you want to delete this note?
+        <input type="submit" value="Yes" />
+        <a href="{% url 'show_note' note.pk %}">Cancel</a>
+    </form>
+{% endblock %}
