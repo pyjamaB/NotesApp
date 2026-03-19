@@ -1,4 +1,4 @@
-ls
+
 """
 Django settings for projectNotes project.
 
