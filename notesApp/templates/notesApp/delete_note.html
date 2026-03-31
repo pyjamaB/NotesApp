@@ -1,6 +1,12 @@
 {% extends 'layout.html' %}
 {% block content %}
-<h2>Note</h2>
+<h2>{{ note.title }}</h2>
+<p>
+    {{ note.text }}
+</p>
+<p>
+    Writer: {{ note.user.username }}
+</p>
     <form method="POST">
         {% csrf_token %}
         Are you sure you want to delete this note?

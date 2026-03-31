@@ -10,7 +10,7 @@
     {% for note in notes %}
         <li>
             <a href="{% url 'show_note' note.pk %}">{{ note.title }}</a>
-            <a>Writer: {{ note.user.username }}</a>            
+            <p>Writer: {{ note.user.username }}</p>            
         </li>
     {% empty %}
         <li>No notes found.</li>
