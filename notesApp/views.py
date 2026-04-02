@@ -78,7 +78,7 @@ def edit_note(request, note_id):
     return render(request, "notesApp/note_form.html", {"note": note})
 
 @login_required
-@csrf_exempt  #Remove @csrf_exempt tag in order to fix broken access control.
+@csrf_exempt #Remove @csrf_exempt tag in order to fix broken access control.
 def delete_note(request, note_id):
     note = get_object_or_404(Note, pk=note_id)
     #note = get_object_or_404(Note, pk=note_id, user=request.user)
